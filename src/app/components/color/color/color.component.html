@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <button class="btn btn-toggle align-items-center bg-primary text-light collapsed" data-bs-toggle="collapse" data-bs-target="#colors-collapse" aria-expanded="true">
+      Renkler
+    </button>
+    <div class="collapse show" id="colors-collapse">
+  <li class="list-group-item"  *ngFor="let color of colors">{{color.colorName}}</li>
+  </div>
+  </ul>
+  

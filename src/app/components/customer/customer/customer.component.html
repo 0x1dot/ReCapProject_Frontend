@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <button class="btn btn-toggle align-items-center bg-primary text-light collapsed" data-bs-toggle="collapse" data-bs-target="#customers-collapse" aria-expanded="true">
+      Müşteriler
+    </button>
+    <div class="collapse show" id="customers-collapse">
+  <li class="list-group-item"  *ngFor="let customer of customers">{{customer.companyName}}</li>
+  </div>
+  </ul>
+  

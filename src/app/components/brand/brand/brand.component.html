@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <button class="btn btn-toggle align-items-center bg-primary text-light collapsed" data-bs-toggle="collapse" data-bs-target="#brands-collapse" aria-expanded="true">
+    Markalar
+  </button>
+  <div class="collapse show" id="brands-collapse">
+<li class="list-group-item"  *ngFor="let brand of brands">{{brand.brandName}}</li>
+</div>
+</ul>
