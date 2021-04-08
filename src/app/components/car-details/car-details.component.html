@@ -1,0 +1,25 @@
+<div class="container details card" *ngIf="images">
+  <span class="fw-bold text-danger">{{ cars[0].carName }} ilgili resimler</span>
+  <img [src]="GetImage()" class="image-details" />
+  <table class="table table-hover cursor-pointer table-bordered table-hover shadow">
+    <thead>
+      <th>#</th>
+      <th>Model</th>
+      <th>Marka</th>
+      <th>Renk</th>
+      <th>Üretim Tarihi</th>
+      <th>Ücret</th>
+      <th>Açıklama</th>
+    </thead>
+    <tbody>
+      <td>{{ cars[0].carId }}</td>
+      <td>{{ cars[0].carName }}</td>
+      <td>{{ cars[0].brandName }}</td>
+      <td>{{ cars[0].colorName }}</td>
+      <td>{{ cars[0].modelYear }}</td>
+      <td>{{ cars[0].dailyPrice }}</td>
+      <td *ngIf="cars[0].description">{{ cars[0].description }}</td>
+      <td *ngIf="!cars[0].description">-</td>
+    </tbody>
+  </table>
+</div>

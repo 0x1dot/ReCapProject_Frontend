@@ -1,4 +1,4 @@
-<ul class="list-group">
+<!-- <ul class="list-group">
     <button class="btn btn-toggle align-items-center bg-primary text-light collapsed" data-bs-toggle="collapse" data-bs-target="#colors-collapse" aria-expanded="true">
       Renkler
     </button>
@@ -6,4 +6,28 @@
   <li class="list-group-item"  *ngFor="let color of colors">{{color.colorName}}</li>
   </div>
   </ul>
+   -->
+   <ul class="list-group">
+    <li class="list-group-item bg-light fw-bold cursor-pointer btn-toggle collapsed"  data-bs-toggle="collapse"
+    data-bs-target="#colors-collapse"
+    aria-expanded="true">Renkler<span class="badge bg-dark total">{{colors.length}}</span></li>
+    <div class="collapse show" id="colors-collapse">
+      <!-- <li
+        [class]="getAllColorClass()"
+        (click)="setCurrentColorAll()"
+        routerLink="/cars"
+        class="cursor-pointer outline-none shadow-none">
+        Tümünü Göster
+      </li> -->
+      <li
+        (click)="setCurrentColor(color)"
+        routerLink="/cars/colors/{{ color.colorId }}"
+        *ngFor="let color of colors"
+        [class]="getCurrentColorClass(color)"
+        class="cursor-pointer outline-none shadow-none">
+        {{ color.colorName }}
+      </li>
+    </div>
+  </ul>
+  <!-- <h5 *ngIf="currentColor">{{ currentColor.colorName }}</h5> -->
   

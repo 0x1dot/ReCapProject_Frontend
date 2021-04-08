@@ -1,22 +1,31 @@
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <td>#</td>
-            <td>Marka Adı</td>
-            <td>Renk Adı</td>
-            <td>Araç Adı</td>
-            <td>Model</td>
-            <td>Günlük Ücret</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let car of cars">
-            <td>{{car.carId}}</td>
-            <td>{{car.brandName}}</td>
-            <td>{{car.colorName}}</td>
-            <td>{{car.carName}}</td>
-            <td>{{car.modelYear}}</td>
-            <td>{{car.dailyPrice}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive mt-3">
+    <table class="table table-hover cursor-pointer table-bordered table-hover table-sm shadow">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Marka Adı</th>
+                <th>Renk Adı</th>
+                <th>Araç Adı</th>
+                <th>Model</th>
+                <th>Günlük Ücret</th>
+                <th>Açıklama</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars">
+                <td>{{car.carId}}</td>
+                <td>{{car.brandName}}</td>
+                <td>{{car.colorName}}</td>
+                <td>{{car.carName}}</td>
+                <td>{{car.modelYear}}</td>
+                <td>{{car.dailyPrice}}</td>
+                <td>{{car.description}}</td>
+                <td>
+                    <button routerLink="/cars/details/{{ car.carId }}" class="btn btn-outline-primary btn-sm shadow-none mx-1">Detaylar</button>
+                    <button routerLink="/cars/details/{{ car.carId }}" class="btn btn-outline-secondary btn-sm mx-1">Teklif Al</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
