@@ -1,31 +1,93 @@
-<div class="table-responsive mt-3">
-    <table class="table table-hover cursor-pointer table-bordered table-hover table-sm shadow">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Marka Adı</th>
-                <th>Renk Adı</th>
-                <th>Araç Adı</th>
-                <th>Model</th>
-                <th>Günlük Ücret</th>
-                <th>Açıklama</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let car of cars">
-                <td>{{car.carId}}</td>
-                <td>{{car.brandName}}</td>
-                <td>{{car.colorName}}</td>
-                <td>{{car.carName}}</td>
-                <td>{{car.modelYear}}</td>
-                <td>{{car.dailyPrice}}</td>
-                <td>{{car.description}}</td>
-                <td>
-                    <button routerLink="/cars/details/{{ car.carId }}" class="btn btn-outline-primary btn-sm shadow-none mx-1">Detaylar</button>
-                    <button routerLink="/cars/details/{{ car.carId }}" class="btn btn-outline-secondary btn-sm mx-1">Teklif Al</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<input
+  type="text"
+  [(ngModel)]="filterText"
+  class="form-control mb-2"
+  id="filterText"
+  placeholder="Model ara"
+/>
+<div class="row my-4">
+  <div class="col md-3">
+    <select
+      class="form-select rounded-0"
+      [(ngModel)]="brandFilter"
+      [value]="brandFilter"
+    >
+      <option value="0">Marka Seçiniz</option>
+      <option
+        *ngFor="let brand of brands"
+        value="{{ brand.brandId }}"
+        [selected]="selectedBrand(brand.brandId)"
+      >
+        {{ brand.brandName }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select
+      class="form-select rounded-0"
+      [(ngModel)]="colorFilter"
+      [value]="colorFilter"
+    >
+      <option value="0">Renk Seçiniz</option>
+      <option
+        *ngFor="let color of colors"
+        value="{{ color.colorId }}"
+        [selected]="selectedColor(color.colorId)"
+      >
+        {{ color.colorName }}
+      </option>
+    </select>
+  </div>
+  <div class="col-lg">
+    <div class="d-grid">
+      <button
+      [disabled]="brandFilter == 0 || colorFilter == 0"
+        class="btn btn-primary"
+        routerLink="/cars/filter/{{ brandFilter }}/{{ colorFilter }}"
+      >
+        <i class="bi-search me-1"></i> Filtrele
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row px-2">
+  <div *ngFor="let car of cars | filterPipe:filterText" class="card mx-2 my-2" style="width: 19.29rem">
+    <img
+      [src]="apiUrl + car.imagePath"
+      class="image-details my-2"
+      [alt]="car.brandName + ' ' + car.carName"
+      [title]="car.brandName + ' ' + car.carName"
+    />
+    <div class="card-body text-center">
+      <span class="text-danger fw-bold"
+        >{{ car.brandName }}
+        <span class="text-secondary">{{ car.carName }}</span>
+      </span>
+    </div>
+    <ul class="list-group text-center">
+      <li class="list-group-item details">
+        <span class="mx-1 badge bg-danger">{{ car.colorName }}</span>
+        <span class="mx-1 badge bg-primary">{{ car.modelYear }}</span>
+        <span class="mx-1 badge bg-dark">{{ car.dailyPrice }} ₺</span>
+      </li>
+      <li class="list-group-item details">
+        <span class="mx-1 badge bg-secondary">{{ car.fuelName }}</span>
+        <span class="mx-1 badge bg-success">{{ car.gearName }}</span>
+      </li>
+    </ul>
+    <div class="card-body text-center">
+      <button
+        routerLink="/cars/details/{{ car.carId }}"
+        class="btn btn-outline-primary btn-sm shadow-none mx-1"
+      >
+        Detaylar
+      </button>
+      <button
+        class="btn btn-outline-secondary btn-sm mx-1"
+        (click)="addToCart(car)" disabled
+      >
+        Sepete Ekle
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,112 @@
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <form
+      class="modal-content"
+      [formGroup]="rentalAddForm"
+      [action]="payment"
+      method="post"
+      (ngSubmit)="payment()"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ this.car.brandName }} - {{ this.car.carName }} | Kirala
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row mb-2">
+          <label for="example-date-input" class="col-4 col-form-label"
+            >Günlük Fiyat</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              disabled="disabled"
+              class="form-control"
+              [value]="this.car.dailyPrice | currency: '₺'"
+            />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="example-date-input" class="col-4 col-form-label"
+            >Müşteri Seçiniz</label
+          >
+          <div class="col-8">
+            <select
+              class="form-select"
+              id="customerId"
+              name="customerId"
+              formControlName="customerId"
+              (change)="compareDate()"
+            >
+              <option
+                [ngValue]="customer.customerId"
+                *ngFor="let customer of customers"
+              >
+                {{ customer.firstName }} {{ customer.lastName }} |
+                {{ customer.companyName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="example-date-input" class="col-4 col-form-label"
+            >Başlangıç</label
+          >
+          <div class="col-8">
+            <input
+              class="form-control"
+              min="{{ getRentDate() }}"
+              value="{{ getRentDate() }}"
+              type="date"
+              id="rentDate"
+              name="rentDate"
+              formControlName="rentDate"
+              (change)="compareDate()"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="example-date-input" class="col-4 col-form-label"
+            >Bitiş</label
+          >
+          <div class="col-8">
+            <input
+              class="form-control"
+              type="date"
+              min="{{ getReturnDate() }}"
+              value="{{ getReturnDate() }}"
+              id="returnDate"
+              name="returnDate"
+              formControlName="returnDate"
+              (change)="compareDate()"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success mt-2" *ngIf="isrentaled">
+        {{ this.data[0] }} gün için kdv dahil toplam borcunuz:
+        {{ this.data[3] | currency: "₺" }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="rentalCheck()" class="btn btn-primary" [disabled]="isrentaled">
+          Kontrol Et
+        </button>
+        <button type="submit" (click)="payment()" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="!isrentaled">
+          Ödemeye Geç
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -4,8 +4,13 @@ export interface Car{
     colorId:number;
     brandName:string;
     colorName:string;
+    gearId:number;
+    gearName:string;
+    fuelId:number;
+    fuelName:string;
     carName:string;
     modelYear:string;
     dailyPrice:number;
     description:string;
+    imagePath:string;
 }

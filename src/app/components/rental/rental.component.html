@@ -1,0 +1,40 @@
+<div class="this.card-header text-center rounded-0 mb-3">
+  <strong> Araç Kirala </strong>
+</div>
+<div class="row" *ngIf="this.car">
+  <div class="col md-3">
+    <img src="{{ apiUrl }}{{ this.car.imagePath }}" style="width: 100%" />
+  </div>
+  <div class="col md-3">
+    <div class="this.card-body">
+      <h5 class="this.card-title">{{ this.car.brandName }} - {{ this.car.carName }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <!--style="width: 250px"-->
+      <li class="list-group-item">Marka: {{ this.car.brandName }}</li>
+      <li class="list-group-item">Renk: {{ this.car.colorName }}</li>
+      <li class="list-group-item">Yakıt: {{ this.car.fuelName }}</li>
+      <li class="list-group-item">Vites: {{ this.car.gearName }}</li>
+      <li class="list-group-item">
+        Günlük Fiyat : {{ this.car.dailyPrice | currency: "₺" }}
+      </li>
+    </ul>
+    <div class="col md-3" style="padding: 0.5rem 1rem">
+      <!-- Modal -->
+      <app-controlrental [car]="car"></app-controlrental>
+    </div>
+  </div>
+  <div style="padding-left: 1.5%; padding-right: 1.5%">
+    <div class="py-3">
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        type="button"
+        style="width: 100%"
+        class="btn btn-primary"
+      >
+        İlerle
+      </button>
+    </div>
+  </div>
+</div>

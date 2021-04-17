@@ -2,8 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { asapScheduler } from "rxjs";
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:"https://localhost:44373/api/"
+
 };
 
 /*

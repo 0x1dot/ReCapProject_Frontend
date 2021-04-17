@@ -1,0 +1,175 @@
+<div class="container">
+  <main>
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">Sipariş</span>
+          <span class="badge bg-primary rounded-pill">1</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <h6 class="my-0" *ngIf="dataloaded">
+                {{ car.brandName }} {{ car.carName }}
+              </h6>
+              <!-- <small class="text-muted"
+                >{{ car.fuelName }} - {{ car.gearName }}</small
+              > -->
+            </div>
+            <span class="text-muted" *ngIf="dataloaded">{{
+              data[1] | currency: "₺"
+            }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <span class="my-0"> KDV </span>
+            <small class="text-muted" *ngIf="dataloaded">{{
+              data[2] | currency: "₺"
+            }}</small>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Toplam (₺)</span>
+            <strong *ngIf="dataloaded">{{
+              data[3] | currency: "₺"
+            }}</strong>
+          </li>
+        </ul>
+        <form class="card p-2">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Kupon Girin" />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Uygula</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <form class="needs-validation" [formGroup]="paymentForm">
+          <h4 class="mb-3">Ödeme şekli</h4>
+
+          <div class="my-3">
+            <div class="form-check" *ngFor="let cardtype of creditCardTypes">
+              <input
+                id="{{ cardtype.typeName }}"
+                name="cardTypeId"
+                formControlName="cardTypeId"
+                type="radio"
+                class="form-check-input"
+                [value]="cardtype.id"
+                checked
+              />
+              <label class="form-check-label" for="{{ cardtype.id }}">{{
+                cardtype.typeName
+              }}</label>
+            </div>
+          </div>
+
+          <div class="row gy-3">
+            <div class="col-md-6 mb-3">
+              <label for="cc-name" class="form-label">Kart Sahibinin Adı</label>
+              <input
+                type="text"
+                formControlName="firstName"
+                class="form-control"
+                id="firstName"
+                placeholder="Kart Üzerindeki Adı"
+              />
+              <div class="invalid-feedback">Bu alan gerekli</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="cc-name" class="form-label"
+                >Kart Sahibinin Soyadı</label
+              >
+              <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                id="lastName"
+                placeholder="Kart Üzerindeki Adı"
+              />
+              <div class="invalid-feedback show">Bu alan gerekli</div>
+            </div>
+            <div class="col-md-12">
+              <label for="cc-number" class="form-label">Kart Numarası</label>
+              <input
+                type="text"
+                formControlName="cardNumber"
+                class="form-control"
+                id="cardNumber"
+                placeholder="1234 5678 9012 3456"
+                maxlength="16"
+              />
+              <div class="invalid-feedback">Bu alan gerekli</div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="cc-expiration" class="form-label"
+                >Son Kullanım Tarihi (Ay)</label
+              >
+              <input
+                type="number"
+                min="1"
+                max="12"
+                formControlName="expirationMonth"
+                class="form-control"
+                id="expirationMonth"
+                placeholder="Ay"
+              />
+              <div class="invalid-feedback">bu alan gerekli</div>
+            </div>
+            <div class="col-md-4">
+              <label for="cc-expiration" class="form-label"
+                >Son Kullanım Tarihi (Yıl)</label
+              >
+              <input
+                type="number"
+                min="2021"
+                max="2050"
+                formControlName="expirationYear"
+                class="form-control"
+                id="expirationYear"
+                placeholder="Yıl"
+              />
+              <div class="invalid-feedback">bu alan gerekli</div>
+            </div>
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <input
+                type="number"
+                min="100"
+                max="999"
+                formControlName="cvv"
+                class="form-control"
+                id="cvv"
+                placeholder=""
+              />
+              <div class="invalid-feedback">bu alan gerekli</div>
+            </div>
+          </div>
+          <div class="form-check my-1">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              formControlName="saveCard"
+              name="saveCard"
+              id="saveCard"
+              checked
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Kredi Kartı bilgilerimi kaydet
+            </label>
+          </div>
+
+          <hr class="my-4" />
+
+          <button
+            class="w-100 btn btn-primary btn-lg"
+            (click)="pay()"
+            type="submit"
+          >
+            Ödemeyi Tamamla
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,25 +1,64 @@
-<div class="container details card" *ngIf="images">
-  <span class="fw-bold text-danger">{{ cars[0].carName }} ilgili resimler</span>
-  <img [src]="GetImage()" class="image-details" />
-  <table class="table table-hover cursor-pointer table-bordered table-hover shadow">
+<div class="card rounded-0">
+  <div class="card-header text-center rounded-0">
+    <div class="card-body">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div *ngFor="let image of images" [class]="getCurrentSlideClass(image)">
+        <img src="{{apiUrl}}{{image.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div> 
+  <div style="text-align:center"  aria-current="true" *ngIf="cardetail"><h4>
+    {{cardetail.brandName}} - {{cardetail.fuelName}}, {{cardetail.gearName}}
+</h4></div>
+
+  <table *ngIf="dataLoaded == true" class="table table-striped">
     <thead>
-      <th>#</th>
-      <th>Model</th>
-      <th>Marka</th>
-      <th>Renk</th>
-      <th>Üretim Tarihi</th>
-      <th>Ücret</th>
-      <th>Açıklama</th>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>      
     </thead>
     <tbody>
-      <td>{{ cars[0].carId }}</td>
-      <td>{{ cars[0].carName }}</td>
-      <td>{{ cars[0].brandName }}</td>
-      <td>{{ cars[0].colorName }}</td>
-      <td>{{ cars[0].modelYear }}</td>
-      <td>{{ cars[0].dailyPrice }}</td>
-      <td *ngIf="cars[0].description">{{ cars[0].description }}</td>
-      <td *ngIf="!cars[0].description">-</td>
+      <tr>
+        <th scope="row">Model</th>
+        <td>{{cardetail.carName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Marka</th>
+        <td>{{cardetail.brandName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Yakıt</th>
+        <td>{{cardetail.fuelName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Vites</th>
+        <td>{{cardetail.gearName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Model Yılı</th>
+        <td>{{cardetail.modelYear}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Renk</th>
+        <td>{{cardetail.colorName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Kiralama Ücreti</th>
+        <td>{{cardetail.dailyPrice}}</td>        
+      </tr>
     </tbody>
   </table>
-</div>
+  <div *ngIf="dataLoaded == true" class="d-grid gap-2 d-md-flex justify-content-md-end">    
+    <button routerLink="/cars/rental/{{ cardetail.carId}}" class="btn btn-success" type="button">Kirala</button>
+  </div>
+</div></div></div>
