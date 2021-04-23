@@ -1,0 +1,24 @@
+<div class="content">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Renk {{this.param ? 'Düzenle' : 'Ekle'}}</h5>
+            </div>
+            <form [formGroup]="ColorActionForm" (ngSubmit)="actionBuild()">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="colorName">Renk adı</label>
+                        <div class="form-group">
+                            <input type="text" id="colorName" formControlName="colorName" class="form-control"
+                                placeholder="Renk giriniz" [value]="!color ? null : color.colorName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-md-flex justify-content-md-end">
+                    <button class="btn btn-fill btn-primary" type="submit" [disabled]="this.color ? (!ColorActionForm.valid && this.color.colorName != this.ColorActionForm.value.brandName)
+                    || this.color.colorName == this.ColorActionForm.value.colorName : !ColorActionForm.valid">{{this.param ? 'Düzenle' : 'Ekle'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

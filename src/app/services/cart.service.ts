@@ -9,7 +9,7 @@ import { Car } from '../models/car';
 export class CartService {
   constructor() {}
   addToCart(car: Car) {
-    let item = CartItems.find((c) => c.car.carId === car.carId);
+    let item = CartItems.find((c) => c.car.Id === car.Id);
     if (item) {
       item.quantity += 1;
     } else {
@@ -20,7 +20,7 @@ export class CartService {
     }
   }
   removeFromCart(car:Car){
-    let item = CartItems.find((c) => c.car.carId === car.carId);
+    let item = CartItems.find((c) => c.car.Id === car.Id);
     CartItems.splice(CartItems.indexOf(item),1);
   }
   list(): CartItem[] {

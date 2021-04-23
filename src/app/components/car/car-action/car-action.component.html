@@ -1,0 +1,84 @@
+<div class="content">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Araba {{this.param ? 'Düzenle' : 'Ekle'}}</h5>
+            </div>
+            <form [formGroup]="CarActionForm" (ngSubmit)="actionBuild()">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="brandId">Marka Adı</label>
+                        <div class="form-group">
+                            <select id="brandId" formControlName="brandId" class="form-select rounded-0">
+                                <option [value]="null" disabled hidden>Marka Seçiniz</option>
+                                <option *ngFor="let brand of brands" [value]="brand.brandId">
+                                    {{ brand.brandName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                   <div class="mb-3">
+                    <label for="colorId">Renk Adı</label>
+                        <div class="form-group">
+                            <select id="colorId" formControlName="colorId" class="form-select rounded-0">
+                                <option [value]="null" disabled hidden>Renk Seçiniz</option>
+                                <option *ngFor="let color of colors" [value]="color.colorId">
+                                    {{ color.colorName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fuelId">Yakıt Tipi</label>
+                        <div class="form-group">
+                            <select id="fuelId" formControlName="fuelId" class="form-select rounded-0">
+                                <option [value]="null" disabled hidden>Yakıt Tipi Seçiniz</option>
+                                <option *ngFor="let fuel of fuels" [value]="fuel.fuelId">
+                                    {{ fuel.fuelName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                   <div class="mb-3">
+                    <label for="gearId">Vites Tipi</label>
+                        <div class="form-group">
+                            <select id="gearId" formControlName="gearId" class="form-select rounded-0">
+                                <option [value]="null" disabled hidden>Vites Tipi Seçiniz</option>
+                                <option *ngFor="let gear of gears" [value]="gear.gearId" selected>
+                                    {{ gear.gearName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="carName">Araba Adı</label>
+                        <div class="form-group">
+                            <input type="text" id="carName" formControlName="carName" class="form-control rounded-0"
+                                placeholder="Araba adı giriniz" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modelYear">Üretim Tarihi</label>
+                        <div class="form-group">
+                            <input type="text" id="modelYear" formControlName="modelYear" class="form-control rounded-0"
+                                placeholder="Üretim tarihi giriniz" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dailyPrice">Günlük Ücret</label>
+                        <div class="form-group">
+                            <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control rounded-0"
+                                placeholder="Günlük ücret giriniz" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-md-flex justify-content-md-end">
+                    <button class="btn btn-fill btn-primary" type="submit"
+                        [disabled]="">
+                        {{this.param ? 'Düzenle' : 'Ekle'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

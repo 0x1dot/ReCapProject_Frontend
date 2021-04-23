@@ -8,20 +8,21 @@ import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ColorService } from 'src/app/services/color.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css'],
 })
-export class CarComponent implements OnInit {
+export class CarComponent implements OnInit { 
   cars: Car[] = [];
   brands: Brand[] = [];
   colors: Color[] = [];
-  filterText = '';
-  brandFilter = 0;
-  colorFilter = 0;
-  apiUrl = 'https://localhost:44373/images/';
+  filterText: string = '';
+  brandFilter:number = 0;
+  colorFilter:number = 0;
+  apiUrl = environment.api+'images/';
   constructor(
     private carService: CarService,
     private brandService: BrandService,

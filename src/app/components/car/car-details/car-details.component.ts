@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class CarDetailsComponent implements OnInit {
   cardetail: Car;
   images: CarImages[];
-  apiUrl = environment.apiUrl+'/images/';
+  apiUrl = environment.api+'images/';
   dataLoaded: boolean = false;
   constructor(
     private carService: CarService,

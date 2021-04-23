@@ -1,0 +1,27 @@
+<div class="content">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Marka {{this.param ? 'Düzenle' : 'Ekle'}}</h5>
+            </div>
+            <form [formGroup]="BrandActionForm" (ngSubmit)="actionBuild()">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="brandName">Marka adı</label>
+                        <div class="form-group">
+                            <input type="text" id="brandName" formControlName="brandName" class="form-control"
+                                placeholder="Marka adı giriniz" [value]="!brand ? null : brand.brandName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-md-flex justify-content-md-end">
+                    <button class="btn btn-fill btn-primary" type="submit" 
+                         [disabled]="this.brand ? (!BrandActionForm.valid && this.brand.brandName != this.BrandActionForm.value.brandName)
+                         || this.brand.brandName == this.BrandActionForm.value.brandName : !BrandActionForm.valid">
+                       {{this.param ? 'Düzenle' : 'Ekle'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

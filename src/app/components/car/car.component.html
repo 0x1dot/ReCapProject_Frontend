@@ -15,7 +15,7 @@
       <option value="0">Marka Seçiniz</option>
       <option
         *ngFor="let brand of brands"
-        value="{{ brand.brandId }}"
+        [value]="brand.brandId"
         [selected]="selectedBrand(brand.brandId)"
       >
         {{ brand.brandName }}
@@ -31,7 +31,7 @@
       <option value="0">Renk Seçiniz</option>
       <option
         *ngFor="let color of colors"
-        value="{{ color.colorId }}"
+        [value]="color.colorId"
         [selected]="selectedColor(color.colorId)"
       >
         {{ color.colorName }}
@@ -43,7 +43,7 @@
       <button
       [disabled]="brandFilter == 0 || colorFilter == 0"
         class="btn btn-primary"
-        routerLink="/cars/filter/{{ brandFilter }}/{{ colorFilter }}"
+        routerLink="/filter/{{ brandFilter }}/{{ colorFilter }}"
       >
         <i class="bi-search me-1"></i> Filtrele
       </button>
@@ -77,7 +77,7 @@
     </ul>
     <div class="card-body text-center">
       <button
-        routerLink="/cars/details/{{ car.carId }}"
+        routerLink="/details/{{ car.carId }}"
         class="btn btn-outline-primary btn-sm shadow-none mx-1"
       >
         Detaylar

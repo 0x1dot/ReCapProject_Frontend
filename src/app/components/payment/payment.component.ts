@@ -110,11 +110,33 @@ export class PaymentComponent implements OnInit {
       paymentModel.totalPrice = this.data[3];
       paymentModel.cardTypeId = creditcardModel.cardTypeId;
       if (this.paymentForm.value.saveCard) {
-        this.creditCardService.addCreditCard(creditcardModel).subscribe((response) => {//kredi kartı ekle
+        this.creditCardService.addCreditCard(creditcardModel).subscribe(
+          (response) => {//kredi kartı ekle
           this.creditCardService.getCardByCustomerId(creditcardModel.customerId).subscribe((response) => {//eklenen kartın id al
             paymentModel.cardId = response.data.id; //kredi kartı id al
             this.process(paymentModel);
-          });
+          },
+          (responseError) => {
+            if (responseError.error.Errors.length > 0) {
+              for (let i = 0; i < responseError.error.Errors.length; i++) {
+                this.toastrService.error(
+                  responseError.error.Errors[i].ErrorMessage,
+                  'Doğrulama hatası'
+                );
+              }
+            }
+          }
+          );
+        },
+        (responseError) => {
+          if (responseError.error.Errors.length > 0) {
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toastrService.error(
+                responseError.error.Errors[i].ErrorMessage,
+                'Doğrulama hatası'
+              );
+            }
+          }
         });
       }else{
         this.process(paymentModel); 
@@ -130,13 +152,11 @@ export class PaymentComponent implements OnInit {
       if(response.success){
         this.rentalService.addRental(this.rental).subscribe(
           (response) => {
-            //this.toastrService.success(response.message, 'Başarılı');
             this.toastrService.success('Ödeme işleminiz gerçekleştirilmiştir. Anasayfaya yönlendiriliyorsunuz.','Başarılı');
             localStorage.clear();
             this.router.navigate(['/']);
           },
           (responseError) => {
-            console.log(responseError);
             if (responseError.error.Errors.length > 0) {
               for (let i = 0; i < responseError.error.Errors.length; i++) {
                 this.toastrService.error(
@@ -147,10 +167,19 @@ export class PaymentComponent implements OnInit {
             }
           }
         );
-        
       }
       else{
         this.toastrService.error('Ödeme işleminiz gerçekleştirilemedi.','Başarısız');
+      }
+    },
+    (responseError) => {
+      if (responseError.error.Errors.length > 0) {
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+          this.toastrService.error(
+            responseError.error.Errors[i].ErrorMessage,
+            'Doğrulama hatası'
+          );
+        }
       }
     });
   }

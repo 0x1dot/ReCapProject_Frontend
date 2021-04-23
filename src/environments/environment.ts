@@ -5,7 +5,8 @@
 import { asapScheduler } from "rxjs";
 export const environment = {
   production: false,
-  apiUrl:"https://localhost:44373/api/"
+  apiUrl:"https://localhost:44373/api/",
+  api:"https://localhost:44373/"
 
 };
 
