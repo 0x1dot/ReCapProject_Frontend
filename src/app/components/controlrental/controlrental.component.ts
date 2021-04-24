@@ -65,7 +65,7 @@ export class ControlrentalComponent implements OnInit {
   rentalCheck() {
     if (this.rentalAddForm.valid) {
       let rentalModel: Rental = Object.assign({}, this.rentalAddForm.value);
-      rentalModel.carId = this.car.Id;
+      rentalModel.carId = this.car.carId;
       this.rental = rentalModel;
       this.rentalService.checkRentalDates(this.rental).subscribe(response => {
         this.toastrService.success(response.message, "Başarılı");
