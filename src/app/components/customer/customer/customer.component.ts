@@ -13,13 +13,13 @@ export class CustomerComponent implements OnInit {
   constructor(private customerService:CustomerService) { }
 
   ngOnInit(): void {
-    this.getCustomers();
+   // this.getCustomers();
   }
 
-  getCustomers(){
-    return this.customerService.getCustomers().subscribe(response=>{
-      this.customers = response.data;
-    })
-  }
+  // getCustomers(){
+  //   return this.customerService.getCustomers().subscribe(response=>{
+  //     this.customers = response.data;
+  //   })
+  // }
 
 }

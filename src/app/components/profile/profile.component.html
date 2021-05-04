@@ -1,0 +1,46 @@
+
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Ayarlar</h5>
+            </div>
+            <form [formGroup]="userForm">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="firstName">Adınız</label>
+                        <div class="form-group">
+                            <input type="text" id="firstName" formControlName="firstName" class="form-control rounded-0"
+                                placeholder="adınızı giriniz" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName">Soyadınız</label>
+                        <div class="form-group">
+                            <input type="text" id="lastName" formControlName="lastName" class="form-control rounded-0"
+                                placeholder="Soyadınızı giriniz"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email Adresiniz</label>
+                        <div class="form-group">
+                            <input type="text" id="email" formControlName="email" class="form-control rounded-0"
+                                placeholder="Email adresinizi giriniz"/>
+                        </div>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label for="password">Şifreniz</label>
+                        <div class="form-group">
+                            <input type="text" id="password" formControlName="password" class="form-control rounded-0"
+                                placeholder="Yeni şifre giriniz" />
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-footer d-md-flex justify-content-md-end">
+                    <button class="btn btn-fill btn-primary" type="submit"
+                      (click)="changeUser()" >
+                     Profili Güncelle
+                    </button>
+                </div>
+            </form>
+        </div>
+  

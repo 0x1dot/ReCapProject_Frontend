@@ -41,16 +41,16 @@ export class CarDetailsComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
-  GetImage() {//api tarafına alınacak
-    if (this.images.length > 0) {
-      return this.apiUrl + this.images[0].imagePath;
-    } else {
-      var s = this.apiUrl + 'default.jpg';
-      return s;
-    }
-  }
+  // GetImage() {//api tarafına alınacak
+  //   if (this.images.length > 0) {
+  //     return this.apiUrl + this.images[0].imagePath;
+  //   } else {
+  //     var s = this.apiUrl + 'default.jpg';
+  //     return s;
+  //   }
+  // }
   getCurrentSlideClass(carImage:CarImages){
-    if (carImage === this.images[0]) {
+    if (carImage === this.images[0] || carImage === null) {
       return "carousel-item active"
     }
     return "carousel-item"

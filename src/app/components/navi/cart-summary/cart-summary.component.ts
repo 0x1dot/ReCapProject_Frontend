@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CartItem } from 'src/app/models/cartItem';
+import { Rental } from 'src/app/models/rental';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -19,9 +20,5 @@ export class CartSummaryComponent implements OnInit {
   }
   getCart(){
     this.cartItems = this.cartService.list();
-  }
-  removeFromCart(car:Car){
-    this.cartService.removeFromCart(car);
-    this.toastrService.error(car.brandName+' ' +car.carName + " sepetten silindi.");
   }
 }

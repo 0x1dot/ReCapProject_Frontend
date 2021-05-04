@@ -1,0 +1,31 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="registerForm">
+            <!-- <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
+            <div class="form-floating">
+                <input formControlName="firstName" type="text" class="form-control"
+                    placeholder="Adınız" />
+                <label for="floatingInput">Adınız</label>
+            </div>
+            <div class="form-floating">
+                <input formControlName="lastName" type="text" class="form-control"
+                    placeholder="Soy Adınız" />
+                <label for="floatingInput">Soy Adınız</label>
+            </div>
+            <div class="form-floating">
+                <input formControlName="email" type="email" value="" class="form-control"
+                    id="floatingInput" placeholder="name@example.com" />
+                <label for="floatingInput">E-posta</label>
+            </div>
+            <div class="form-floating">
+                <input formControlName="password" type="password" value="" class="form-control"
+                    id="floatingPassword" placeholder="Password" autocomplete="false" />
+                <label for="floatingPassword">Parola</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" (click)="register()">
+                Kayıt Ol
+            </button>
+        </form>
+    </main>
+</body>

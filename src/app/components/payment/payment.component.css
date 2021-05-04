@@ -1,0 +1,49 @@
+.cancel {
+    text-decoration: none
+}
+
+.bg-pay {
+    background-color: #eee;
+    border-radius: 2px
+}
+
+.com-color {
+    color: #8f37aa !important
+}
+
+.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio div {
+    padding: 7px 14px;
+    border: 2px solid #8f37aa;
+    display: inline-block;
+    color: #8f37aa;
+    border-radius: 3px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 10px
+}
+
+label.radio input:checked+div {
+    border-color: #8f37aa;
+    background-color: #8f37aa;
+    color: #fff
+}
+
+.fw-500 {
+    font-weight: 400
+}
+
+.lh-16 {
+    line-height: 16px
+}

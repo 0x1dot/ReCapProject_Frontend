@@ -34,3 +34,68 @@
 .btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
 }
+.tablecart{
+  border-top: 0;
+  -webkit-box-shadow: 0 5px 40px rgb(0 0 0 / 15%);
+  -moz-box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 40px rgb(0 0 0 / 15%);
+}
+
+a.productremove:hover {
+  color: red !important;
+}
+
+a.productremove {
+  display: block;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 1em;
+  width: 1em;
+  text-align: center;
+  line-height: 1;
+  border-radius: 100%;
+  color: #999!important;
+  text-decoration: none;
+  font-weight: 700;
+  border: 0;
+}
+.tablecart img{
+  width: 70px;
+  border-radius: 5px;
+  height: auto;
+}
+.tablecart tr td{
+  padding: 20px;
+}
+.tablecart td{
+  vertical-align: middle;
+}
+.tablecart th{
+  font-size: 14px;
+  padding: 12px 12px 10px 12px;
+}
+.tablecart tbody{
+  border-style: hidden !important;
+}
+.tablecart .amount{
+  color:#222;
+  font-weight: 600;
+}
+.tablecart .quantity{
+  width: 80px;
+}
+.tablecart .actions{
+  text-align: right;
+}
+.tablecart .coupon {
+  float: left;
+}
+.input-group{
+  width: auto !important;
+}
+.tablecart .nonCart{
+  text-align: center !important;
+}
+.checkout{
+  float:right;
+}

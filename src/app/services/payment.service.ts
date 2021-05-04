@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
+import { CartItem } from '../models/cartItem';
 import { CreditCard } from '../models/creditCard';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Payment } from '../models/payment';
@@ -18,18 +19,19 @@ export class PaymentService {
     return this.httpClient.post<ResponseModel>(paymentPath, payment);
   }
 
-  getCardListByCustomerId(
-    customerId: number
-  ): Observable<ListResponseModel<CreditCard>> {
-    let newPath =
-      environment.apiUrl + 'payments/listcards?customerId=' + customerId;
-    return this.httpClient.get<ListResponseModel<CreditCard>>(newPath);
-  }
+  // getCardListByCustomerId(
+  //   customerId: number
+  // ): Observable<ListResponseModel<CreditCard>> {
+  //   let newPath =
+  //     environment.apiUrl + 'payments/listcards?customerId=' + customerId;
+  //   return this.httpClient.get<ListResponseModel<CreditCard>>(newPath);
+  // }
   totalPrice(rentDate: Date, returnDate: Date,dailyPrice:number) {
     let data:number[] = [];
     var date1 = new Date(rentDate);
     var date2 = new Date(returnDate);
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    if(timeDiff==0) timeDiff = 1;
     var totaldays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     data[0] = totaldays;//kiralanan toplam gün
     var money = dailyPrice*totaldays;

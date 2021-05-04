@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table tablecart">
+            <thead style="color: #fff; background: #000;">
+                <th></th>
+                <th></th>
+                <th>Model</th>
+                <th>Günlük Ücret</th>
+                <th>Gün</th>
+                <th>Toplam</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cartItem of cartItems">
+                    <td><a class="productremove" (click)="remove(cartItem.rental)">×</a></td>
+                    <td> <img width="300" height="300" src="{{apiUrl+cartItem.rental.imagePath}}" class="thumbnail" alt=""></td>
+                    <td><span style="font-weight: 700;">{{cartItem.rental.brandName }}</span> {{
+                        cartItem.rental.carName}}</td>
+                    <td>{{cartItem.rental.dailyPrice | currency: "₺"}}</td>
+                    <td>
+                        <input type="number" class="form-control rounded-0 quantity" name="quantity"
+                            [attr.disabled]="true" [attr.value]="totalCalc(cartItem)[0]" />
+                    </td>
+                    <td class="amount">{{ this.totalCalc(cartItem)[1] | currency: "₺"}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6" [class]="cartItems.length> 0?'actions':'nonCart'">
+                        <!-- <div class="input-group coupon "> 
+                                <input type="text" class="form-control rounded-0 input-text" placeholder="Kupon Kodu">
+                                <button type="submit" class="btn btn-primary">Kuponu Uygula</button>
+                            </div> -->
+                        <button type="button" class="btn btn-success shadow-none" name="update_cart" value="Update cart"
+                            routerLink="/" *ngIf="cartItems.length > 0">Alışverişe Devam Et</button>
+                        <span *ngIf="cartItems.length==0">Sepetiniz Ürün Bulunamadı.</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row" *ngIf="cartItems.length>0">
+    <div class="cart_totals">
+        <h2>Sepet Toplamı</h2>
+
+        <table class="table table_responsive table-bordered rounded-3">
+            <tbody>
+                <tr class="cart-subtotal">
+                    <th>Ara Toplam</th>
+                    <td data-title="Subtotal">
+                        <span class="amount">
+                            {{this.totals[0].toString() | currency: "₺"}}
+                        </span>
+                    </td>
+                </tr>
+                <tr class="order-total">
+                    <th>KDV</th>
+                    <td data-title="Total">
+                        {{this.totals[1].toString() | currency: "₺"}}
+                    </td>
+                </tr>
+                <tr class="order-total">
+                    <th>Toplam</th>
+                    <td data-title="Total">
+                        <strong>
+                            {{this.totals[2].toString() | currency: "₺"}}
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="checkout">
+            <button class="btn btn-primary" routerLink="/payment">Ödemeye Geç</button>
+        </div>
+
+
+    </div>
+</div>

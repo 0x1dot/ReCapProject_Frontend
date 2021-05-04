@@ -8,6 +8,8 @@ import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ColorService } from 'src/app/services/color.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -28,10 +30,8 @@ export class CarComponent implements OnInit {
     private brandService: BrandService,
     private colorService: ColorService,
     private activatedRoute: ActivatedRoute,
-    private toastrService: ToastrService,
-    private cartService: CartService
+    private storage: StorageService
   ) {}
-
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['brandId'] && params['colorId']) {
@@ -96,10 +96,7 @@ export class CarComponent implements OnInit {
       return false;
     }
   }
-  addToCart(car: Car) {
-    this.cartService.addToCart(car);
-    this.toastrService.success(
-      car.brandName + ' ' + car.carName + ' Sepete eklendi'
-    );
+  isLogin(){
+    return !(this.storage.getItem("token") === null);
   }
 }

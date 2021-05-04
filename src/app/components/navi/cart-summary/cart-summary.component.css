@@ -1,0 +1,10 @@
+.sepet .sepetsayi {
+    position: absolute;
+    top: 22px;
+    right: 5px;
+    background: #77bc34;
+    color: #fff;
+    padding: 4px;
+    border-radius: 100px;
+    font-size: 12px;
+}

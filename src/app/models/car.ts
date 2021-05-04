@@ -11,5 +11,6 @@ export interface Car{
     carName:string;
     modelYear:string;
     dailyPrice:number;
+    carFindeksPoint:number;
     imagePath:string;
 }

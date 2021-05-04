@@ -1,24 +1,35 @@
-
 <nav class="navbar navbar-expand-lg mb-4 navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">ReCap Car Rental</a>
+    <a class="navbar-brand" routerLink="/">ReCap Car Rental</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Anasayfa</a>
+          <a class="nav-link active" aria-current="page" routerLink="/">Anasayfa</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cars">Araçlar</a>
+          <a class="nav-link"  routerLink="/cars">Araçlar</a>
         </li>
         <app-cart-summary></app-cart-summary>
-      </ul>
-      <div class="d-flex">
-        <button class="btn btn-outline-primary btn-sm shadow-none mx-1">Giriş Yap</button>
-        <button class="btn btn-outline-success btn-sm shadow-none mx-1">Kayıt Ol</button>
+   </ul>
+      <div class="d-flex" *ngIf="!getItem()">
+        <button class="auth-modal-toggle ripple-surface ms-2 me-1 btn btn-outline-primary btn-sm shadow-none mx-1" routerLink="login">Giriş Yap</button>
+        <button class="btn btn-outline-success btn-sm shadow-none mx-1" routerLink="register">Kayıt Ol</button>
       </div>
+	  <ul class="navbar-nav mb-lg-0" *ngIf="getItem()">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img alt="user avatar" [src]="apiurl+'user.png'" class="avatar avatar-wordpress-social-login avatar-24 photo" height="24" width="24">        </a>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" data-bs-dropdown-in="fadeIn" data-bs-dropdown-out="fadeOut">
+          <a class="dropdown-item"><b>{{getUser()}}</b></a>
+          <a class="dropdown-item" routerLink="profile">Kullanıcı Ayarları</a>
+                      <hr class="my-0">
+          <a class="dropdown-item" href="#" (click)="logOut()">Çıkış Yap</a>
+        </div>
+      </li>
+    </ul>
     </div>
   </div>
 </nav>

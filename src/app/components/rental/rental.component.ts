@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from 'src/app/models/car';
+import { CarImages } from 'src/app/models/carimages';
 import { CarService } from 'src/app/services/car.service';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -11,6 +12,8 @@ import { environment } from 'src/environments/environment';
 export class RentalComponent implements OnInit {
   apiUrl = environment.api+'images/';
   car:Car;
+  images: CarImages[];
+  dataLoaded: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private carService: CarService,
@@ -20,6 +23,7 @@ export class RentalComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getCars(params['carId']);
+        this.getCarsImagesById(params['carId']);
       }
     });
   }
@@ -28,4 +32,16 @@ export class RentalComponent implements OnInit {
       this.car = response.data;
     });
   } 
+  getCarsImagesById(carId: number) {
+    this.carService.getCarImagesById(carId).subscribe((response) => {
+      this.images = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getCurrentSlideClass(carImage:CarImages){
+    if (carImage === this.images[0] || carImage === null) {
+      return "carousel-item active"
+    }
+    return "carousel-item"
+  }
 }

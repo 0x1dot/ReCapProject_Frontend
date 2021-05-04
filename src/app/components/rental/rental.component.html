@@ -3,7 +3,25 @@
 </div>
 <div class="row" *ngIf="this.car">
   <div class="col md-3">
-    <img src="{{ apiUrl }}{{ this.car.imagePath }}" style="width: 100%" />
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let image of images" [class]="getCurrentSlideClass(image)">
+          <img [src]="apiUrl + image.imagePath" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+        </div>
+        <div *ngIf="images != null && images.length == 0" [class]="getCurrentSlideClass(null)">
+          <img [src]="apiUrl+'default.jpg'"  class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> 
+    <!-- <img src="{{ apiUrl }}{{ this.car.imagePath }}" style="width: 100%" /> -->
   </div>
   <div class="col md-3">
     <div class="this.card-body">
@@ -21,19 +39,19 @@
     </ul>
     <div class="col md-3" style="padding: 0.5rem 1rem">
       <!-- Modal -->
-      <app-controlrental [car]="car"></app-controlrental>
+      <app-rentadd [car]="car"></app-rentadd>
     </div>
   </div>
   <div style="padding-left: 1.5%; padding-right: 1.5%">
     <div class="py-3">
       <button
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        [attr.data-bs-target]="'#exampleModal'+this.car.carId"
         type="button"
         style="width: 100%"
         class="btn btn-primary"
       >
-        İlerle
+        Kirala
       </button>
     </div>
   </div>

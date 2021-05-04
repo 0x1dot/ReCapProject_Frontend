@@ -3,4 +3,10 @@ export interface Rental{
     customerId:number;
     rentDate:Date;
     returnDate:Date;
+    carName?:string;
+    dailyPrice?:number;
+    brandName?:string;
+    imagePath?:string;
+    gearName?:string;
+    fuelName?:string;
 }

@@ -3,34 +3,36 @@
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Sipariş</span>
-          <span class="badge bg-primary rounded-pill">1</span>
+          <span class="text-primary">Siparişler</span>
+          <span class="badge bg-primary rounded-pill">{{cartItems.length}}</span>
         </h4>
         <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between">
+          <li class="list-group-item d-flex justify-content-between" *ngFor="let cartItem of cartItems">
             <div>
-              <h6 class="my-0" *ngIf="dataloaded">
-                {{ car.brandName }} {{ car.carName }}
+              <h6 class="my-0">
+                {{ cartItem.rental.brandName }} {{cartItem.rental.carName }}
               </h6>
-              <!-- <small class="text-muted"
-                >{{ car.fuelName }} - {{ car.gearName }}</small
-              > -->
+              <small class="text-muted">{{cartItem.rental.fuelName}} - {{cartItem.rental.gearName}} </small>
             </div>
-            <span class="text-muted" *ngIf="dataloaded">{{
-              data[1] | currency: "₺"
-            }}</span>
+            <span class="text-muted"> {{totalCalc(cartItem)[1] | currency: "₺"}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <span class="my-0"> Ara Toplam </span>
+            <small class="text-muted">
+              {{this.totals[0].toString() | currency: "₺"}}
+            </small>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <span class="my-0"> KDV </span>
-            <small class="text-muted" *ngIf="dataloaded">{{
-              data[2] | currency: "₺"
-            }}</small>
+            <small class="text-muted">
+              {{this.totals[1].toString() | currency: "₺"}}
+            </small>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Toplam (₺)</span>
-            <strong *ngIf="dataloaded">{{
-              data[3] | currency: "₺"
-            }}</strong>
+            <strong>
+              {{this.totals[2].toString() | currency: "₺"}}
+            </strong>
           </li>
         </ul>
         <form class="card p-2">
@@ -43,132 +45,96 @@
         </form>
       </div>
       <div class="col-md-7 col-lg-8">
-        <form class="needs-validation" [formGroup]="paymentForm">
-          <h4 class="mb-3">Ödeme şekli</h4>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+              type="button" role="tab" aria-controls="nav-home" aria-selected="false" (click)="selectedPaymentMethod('home')">Yeni Kart</button>
+            <button class="nav-link" id="nav-card-tab" data-bs-toggle="tab" (click)="selectedPaymentMethod('card')" data-bs-target="#nav-card" type="button"
+              role="tab" aria-controls="nav-card" aria-selected="true">Kartlarım</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <form class="needs-validation" [formGroup]="paymentForm">
+              <h4 class="mb-3">Ödeme şekli</h4>
 
-          <div class="my-3">
-            <div class="form-check" *ngFor="let cardtype of creditCardTypes">
-              <input
-                id="{{ cardtype.typeName }}"
-                name="cardTypeId"
-                formControlName="cardTypeId"
-                type="radio"
-                class="form-check-input"
-                [value]="cardtype.id"
-                checked
-              />
-              <label class="form-check-label" for="{{ cardtype.id }}">{{
-                cardtype.typeName
-              }}</label>
+              <div class="my-3">
+                <div class="form-check" *ngFor="let cardtype of creditCardTypes">
+                  <input id="{{ cardtype.typeName }}" name="cardTypeId" formControlName="cardTypeId" type="radio"
+                    class="form-check-input" [value]="cardtype.id" checked />
+                  <label class="form-check-label" for="{{ cardtype.id }}">{{
+                    cardtype.typeName
+                    }}</label>
+                </div>
+              </div>
+
+              <div class="row gy-3">
+                <div class="col-md-6 mb-3">
+                  <label for="cc-name" class="form-label">Kart Sahibinin Adı</label>
+                  <input type="text" formControlName="firstName" class="form-control" id="firstName"
+                    placeholder="Kart Üzerindeki Adı" />
+                  <div class="invalid-feedback">Bu alan gerekli</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="cc-name" class="form-label">Kart Sahibinin Soyadı</label>
+                  <input type="text" formControlName="lastName" class="form-control" id="lastName"
+                    placeholder="Kart Üzerindeki Adı" />
+                  <div class="invalid-feedback show">Bu alan gerekli</div>
+                </div>
+                <div class="col-md-12">
+                  <label for="cc-number" class="form-label">Kart Numarası</label>
+                  <input type="text" formControlName="cardNumber" class="form-control" id="cardNumber"
+                    placeholder="1234 5678 9012 3456" maxlength="16" />
+                  <div class="invalid-feedback">Bu alan gerekli</div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="cc-expiration" class="form-label">Son Kullanım Tarihi (Ay)</label>
+                  <input type="number" min="1" max="12" formControlName="expirationMonth" class="form-control"
+                    id="expirationMonth" placeholder="Ay" />
+                  <div class="invalid-feedback">bu alan gerekli</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="cc-expiration" class="form-label">Son Kullanım Tarihi (Yıl)</label>
+                  <input type="number" min="2021" max="2050" formControlName="expirationYear" class="form-control"
+                    id="expirationYear" placeholder="Yıl" />
+                  <div class="invalid-feedback">bu alan gerekli</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="cc-cvv" class="form-label">CVV</label>
+                  <input type="number" min="100" max="999" formControlName="cvv" class="form-control" id="cvv"
+                    placeholder="" />
+                  <div class="invalid-feedback">bu alan gerekli</div>
+                </div>
+              </div>
+              <div class="form-check my-1">
+                <input class="form-check-input" type="checkbox" formControlName="saveCard" name="saveCard" id="saveCard"
+                  checked />
+                <label class="form-check-label" for="flexCheckChecked">
+                  Kredi Kartı bilgilerimi kaydet
+                </label>
+              </div>
+
+              <hr class="my-4" />
+
+              <button class="w-100 btn btn-primary btn-lg" (click)="pay()" [disabled]="!paymentForm.valid" type="submit">
+                Ödemeyi Tamamla
+              </button>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="nav-card" role="tabpanel" aria-labelledby="nav-card-tab">
+            <div class="container mt-3 mb-3">
+              <div class="d-flex flex-column">
+                 <label class="radio" *ngFor="let card of cards">
+                   <input type="radio" name="cardId" value="{{card.id}}" (click)="selectCards(card)">
+                   <div class="d-flex justify-content-between"> <span>{{card.cardNumber}}</span> <span>**{{card.cvv.toString().substr(2,1)}}</span> </div>
+                </label>
+                <button class="btn btn-primary" *ngIf="cards!=null && cards.length>0" (click)="pay()" [disabled]="targetCards==undefined">Ödemeyi Tamamla</button>
+             <strong>Kayıtlı kart bilgileriniz mevcut değil.</strong>
+              </div>
             </div>
           </div>
-
-          <div class="row gy-3">
-            <div class="col-md-6 mb-3">
-              <label for="cc-name" class="form-label">Kart Sahibinin Adı</label>
-              <input
-                type="text"
-                formControlName="firstName"
-                class="form-control"
-                id="firstName"
-                placeholder="Kart Üzerindeki Adı"
-              />
-              <div class="invalid-feedback">Bu alan gerekli</div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="cc-name" class="form-label"
-                >Kart Sahibinin Soyadı</label
-              >
-              <input
-                type="text"
-                formControlName="lastName"
-                class="form-control"
-                id="lastName"
-                placeholder="Kart Üzerindeki Adı"
-              />
-              <div class="invalid-feedback show">Bu alan gerekli</div>
-            </div>
-            <div class="col-md-12">
-              <label for="cc-number" class="form-label">Kart Numarası</label>
-              <input
-                type="text"
-                formControlName="cardNumber"
-                class="form-control"
-                id="cardNumber"
-                placeholder="1234 5678 9012 3456"
-                maxlength="16"
-              />
-              <div class="invalid-feedback">Bu alan gerekli</div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="cc-expiration" class="form-label"
-                >Son Kullanım Tarihi (Ay)</label
-              >
-              <input
-                type="number"
-                min="1"
-                max="12"
-                formControlName="expirationMonth"
-                class="form-control"
-                id="expirationMonth"
-                placeholder="Ay"
-              />
-              <div class="invalid-feedback">bu alan gerekli</div>
-            </div>
-            <div class="col-md-4">
-              <label for="cc-expiration" class="form-label"
-                >Son Kullanım Tarihi (Yıl)</label
-              >
-              <input
-                type="number"
-                min="2021"
-                max="2050"
-                formControlName="expirationYear"
-                class="form-control"
-                id="expirationYear"
-                placeholder="Yıl"
-              />
-              <div class="invalid-feedback">bu alan gerekli</div>
-            </div>
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input
-                type="number"
-                min="100"
-                max="999"
-                formControlName="cvv"
-                class="form-control"
-                id="cvv"
-                placeholder=""
-              />
-              <div class="invalid-feedback">bu alan gerekli</div>
-            </div>
-          </div>
-          <div class="form-check my-1">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              formControlName="saveCard"
-              name="saveCard"
-              id="saveCard"
-              checked
-            />
-            <label class="form-check-label" for="flexCheckChecked">
-              Kredi Kartı bilgilerimi kaydet
-            </label>
-          </div>
-
-          <hr class="my-4" />
-
-          <button
-            class="w-100 btn btn-primary btn-lg"
-            (click)="pay()"
-            type="submit"
-          >
-            Ödemeyi Tamamla
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   </main>

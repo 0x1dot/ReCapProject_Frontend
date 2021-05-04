@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { BrandComponent } from './components/brand/brand/brand.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ColorComponent } from './components/color/color/color.component';
 import { CustomerComponent } from './components/customer/customer/customer.component';
 import { CarComponent } from './components/car/car.component';
@@ -14,12 +14,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { CartSummaryComponent } from './components/navi/cart-summary/cart-summary.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { ControlrentalComponent } from './components/controlrental/controlrental.component';
+import { RentaddComponent } from './components/rental/rentadd/rentadd.component';
 import { BrandActionComponent } from './components/brand/brand/brand-action/brand-action.component';
 import { ColorActionComponent } from './components/color/color/color-action/color-action.component';
 import { CarActionComponent } from './components/car/car-action/car-action.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
+import { CartshopComponent } from './components/cartshop/cartshop.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +39,14 @@ import { CarActionComponent } from './components/car/car-action/car-action.compo
     FilterPipePipe,
     CartSummaryComponent,
     PaymentComponent,
-    ControlrentalComponent,
     BrandActionComponent,
     ColorActionComponent,
     CarActionComponent,
+    LoginComponent,
+    RentaddComponent,
+    RegisterComponent,
+    CartshopComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +59,9 @@ import { CarActionComponent } from './components/car/car-action/car-action.compo
       positionClass:"toast-bottom-right"
     }),
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

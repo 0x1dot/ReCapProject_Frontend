@@ -4,7 +4,10 @@
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div *ngFor="let image of images" [class]="getCurrentSlideClass(image)">
-        <img src="{{apiUrl}}{{image.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+        <img [src]="apiUrl + image.imagePath" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+      </div>
+      <div *ngIf="images.length == 0" [class]="getCurrentSlideClass(null)">
+        <img [src]="apiUrl+'default.jpg'"  class="d-block w-100" alt="..." style="width: auto; height: 300px;">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
